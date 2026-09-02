@@ -25,8 +25,11 @@ class RegistroAcademico(models.Model):
     docente = models.ForeignKey(Docente, on_delete=models.SET_NULL, null=True)
     asignatura = models.CharField(max_length=100)
     calificacion = models.DecimalField(max_digits=3, decimal_places=1)
-    fecha_registro = models.DateTimeField(auto_now_add=True) # Guarda el momento exacto
+    fecha_registro = models.DateTimeField(auto_now_add=True)
     observaciones = models.TextField(blank=True, null=True)
+
+    class Meta:
+        unique_together = ('alumno', 'asignatura')
 
     def __str__(self):
         return f"{self.asignatura} - {self.alumno.nombre}"
