@@ -1,24 +1,45 @@
 # Proyecto 10 - Gestión Escolar
 
-Sistema backend desarrollado con Django Rest Framework para digitalizar y centralizar la gestión académica de un establecimiento educacional. 
-
-**Desarrollador:** Jorge Faundez
-
-## Características Implementadas
-
-* **Base de Datos Centralizada:** Modelos relacionales para Docentes, Alumnos y Registros Académicos con historial automático de fechas.
-* **Seguridad y Perfiles de Acceso:** 
-  * Ocultamiento de código en producción (`DEBUG = False`).
-  * Página 404 personalizada.
-  * Acceso público de solo lectura para el listado de docentes.
-  * Acceso privado (requiere autenticación) para la gestión de alumnos y registros.
-* **Reglas de Negocio:** Validación estricta para calificaciones (solo permite valores entre 1.0 y 7.0).
-* **Indicadores de Gestión:** Endpoint personalizado para la obtención de estadísticas en tiempo real (total de alumnos, docentes y promedio general).
+Backend desarrollado en Django y Django Rest Framework para la digitalización y centralización de la gestión académica.
 
 ## Instalación y Ejecución
 
-Sigue estos pasos en la terminal para levantar el proyecto localmente:
+### 1. Crear y activar el ambiente virtual
+```bash
+python -m venv env
+```
+En PowerShell:
+```bash
+.\env\Scripts\activate
+```
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone <URL_DE_TU_REPOSITORIO>
+### 2. Instalar dependencias:
+```bash
+pip install django djangorestframework
+```
+
+### 3. Aplicar migraciones:
+```bash
+python manage.py migrate
+```
+
+### 4. Crear usuario administrador 
+```bash
+python manage.py createsuperuser
+```
+
+### 5. Ejecutar el servidor
+```bash
+python manage.py runserver --insecure
+```
+*(Nota: Se utiliza el flag `--insecure` para forzar la carga de los archivos estáticos y los estilos, debido a que el proyecto cuenta con el parámetro `DEBUG = False` activado por seguridad).*
+
+## Rutas de Prueba
+
+* **Bienvenida:** http://127.0.0.1:8000/ (Página principal del proyecto con accesos dinámicos)
+* **Error 404:** http://127.0.0.1:8000/ruta-no-existe/ (Pantalla de error personalizada y controlada)
+* **Panel de Administración:** http://127.0.0.1:8000/admin/
+* **API Docentes:** http://127.0.0.1:8000/api/docentes/ (Ruta de acceso público)
+* **API Alumnos:** http://127.0.0.1:8000/api/alumnos/ (Requiere autenticación)
+* **API Registros:** http://127.0.0.1:8000/api/registros/ (Requiere autenticación)
+* **Indicadores:** http://127.0.0.1:8000/api/registros/indicadores/ (Requiere autenticación)
