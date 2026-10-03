@@ -3,22 +3,22 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Avg, Count
-from .serializer import DocenteSerializer, AlumnoSerializer, RegistroAcademicoSerializer
+from .serializers import DocenteSerializer, AlumnoSerializer, RegistroAcademicoSerializer
 from .models import Docente, Alumno, RegistroAcademico
 
 class DocenteViewSet(viewsets.ModelViewSet):
-    queryset = Docente.objects.all() #[cite: 2]
-    serializer_class = DocenteSerializer #[cite: 2]
+    queryset = Docente.objects.all() 
+    serializer_class = DocenteSerializer 
     permission_classes = [IsAuthenticatedOrReadOnly] 
 
 class AlumnoViewSet(viewsets.ModelViewSet):
-    queryset = Alumno.objects.all() #[cite: 2]
-    serializer_class = AlumnoSerializer #[cite: 2]
+    queryset = Alumno.objects.all() 
+    serializer_class = AlumnoSerializer 
     permission_classes = [IsAuthenticated] 
 
 class RegistroAcademicoViewSet(viewsets.ModelViewSet):
-    queryset = RegistroAcademico.objects.all() #[cite: 2]
-    serializer_class = RegistroAcademicoSerializer #[cite: 2]
+    queryset = RegistroAcademico.objects.all() 
+    serializer_class = RegistroAcademicoSerializer 
     permission_classes = [IsAuthenticated] 
 
     # Endpoint personalizado para Indicadores de Gestión
