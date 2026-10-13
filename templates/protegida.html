@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Área Segura</title>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;">
+    <h1 style="color: green;">¡Acceso Concedido!</h1>
+    <p>Bienvenido, <strong>{{ user.username }}</strong>. Estás en un área protegida.</p>
+    <p>Has accedido a través de una: <strong>{{ tipo_vista }}</strong></p>
+    
+    <br><br>
+    <a href="{% url 'vista_publica' %}">Volver al inicio</a> | 
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #333; color: white; padding: 8px 15px; border: none; cursor: pointer;">
+            Cerrar Sesión
+        </button>
+    </form>
+</body>
+</html>

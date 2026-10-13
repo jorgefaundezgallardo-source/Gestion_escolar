@@ -33,3 +33,29 @@ class RegistroAcademicoViewSet(viewsets.ModelViewSet):
             "total_docentes": total_docentes,
             "promedio_general_escuela": round(promedio_notas, 1) if promedio_notas else 0.0
         })
+
+    # --- NUEVAS VISTAS WEB  ---
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+
+# 1. Vista Pública de Bienvenida (Function Based View sin protección)
+def vista_publica(request):
+    return render(request, 'bienvenida.html')
+
+# 2. Vista Protegida Basada en Función (FBV)
+@login_required # 
+def vista_protegida_funcion(request):
+    contexto = {'tipo_vista': 'Function Based View (FBV)'}
+    return render(request, 'protegida.html', contexto)
+
+# 3. Vista Protegida Basada en Clase (CBV)
+class VistaProtegidaClase(LoginRequiredMixin, TemplateView):
+    # LoginRequiredMixin 
+    template_name = 'protegida.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tipo_vista'] = 'Class Based View (CBV)'
+        return context

@@ -16,11 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
-    # Esta línea conecta la ruta vacía con tu nueva pantalla de bienvenida
-    path('', TemplateView.as_view(template_name='bienvenida.html'), name='inicio'), 
+    
+    # Rutas de la API REST (Django REST Framework)
+    path('api/', include('api.urls')), 
+    
+    # Sistema de Autenticación de Django (Login / Logout)
+    path('accounts/', include('django.contrib.auth.urls')),
+    
+    # Nuevas Vistas Web 
+    path('', views.vista_publica, name='vista_publica'), # URL base /
+    path('protegida/funcion/', views.vista_protegida_funcion, name='vista_protegida_funcion'),
+    path('protegida/clase/', views.VistaProtegidaClase.as_view(), name='vista_protegida_clase'),
 ]
